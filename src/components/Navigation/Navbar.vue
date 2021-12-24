@@ -25,6 +25,10 @@ onClickOutside(navbottom, (e) => {
   open.value = false
 })
 
+// Focus search input when start searching
+const searchInput = ref<HTMLInputElement>()
+watch(search, val => setTimeout(() => val && searchInput.value?.focus()))
+
 // Search article
 const searchArticle = ref('')
 const router = useRouter()
@@ -68,9 +72,7 @@ const dataNavbar: NavbarMenu[] = [
   >
     <div class="max-w-screen-lg mx-auto h-full flex flex-row items-center space-x-4">
       <div class="logo flex-1">
-        <router-link to="/" class="font-bold lg:tracking-wide text-2xl ">
-            Elucidator Blog
-        </router-link>
+        <router-link to="/" class="font-bold lg:tracking-wide text-2xl">Elucidator Blog</router-link>
       </div>
       <div class="flex flex-wrap items-center">
         <router-link
@@ -106,9 +108,7 @@ const dataNavbar: NavbarMenu[] = [
           rel="noreferrer"
           title="repository github"
         >
-          <uil-github
-            class="flex cursor-pointer text-elucidator-700 dark:text-dark-repulser-400"
-          />
+          <uil-github class="flex cursor-pointer text-elucidator-700 dark:text-dark-repulser-400" />
         </a>
         <carbon-menu
           class="cursor-pointer text-elucidator-700 dark:text-dark-repulser-400 ml-5 sm:block lg:hidden"
@@ -158,7 +158,7 @@ const dataNavbar: NavbarMenu[] = [
         @click="goSearch"
       />
       <input
-        ref="search"
+        ref="searchInput"
         v-model="searchArticle"
         type="text"
         class="bg-white shadow rounded border-0 w-lg h-14 py-5 px-5 focus:outline-none"

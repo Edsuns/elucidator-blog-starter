@@ -52,9 +52,11 @@ export const getArticlesSearch = (tags: Array<string>) => {
   const isPosts = getDataRoutes().filter(
     (data) => Object.keys(data.meta).length !== 0,
   )
-  const filter = isPosts.filter((tag: any) =>
-    tags.every((filter) => tag.meta.frontmatter.name.includes(filter)),
-  )
+  const filter = isPosts.filter((tag: any) => tags.every((filter) => {
+    const target = filter.toLowerCase()
+    return tag.meta.frontmatter.name.toLowerCase().includes(target)
+      || tag.meta.frontmatter.tags.find((t: string) => t.toLowerCase().includes(target))
+  }))
   return filter
 }
 

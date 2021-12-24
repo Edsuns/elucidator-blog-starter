@@ -5,6 +5,7 @@ export const capitalizeStr = (str: string): string => {
 
 export const slug = (str: string): string =>
   str
+    .trim()
     .toLowerCase()
     .replace(/ /g, "-")
     .replace(/[^\w-]+/g, "")
